@@ -7,7 +7,7 @@ Main file is sensor-data.py. It runs as daemon in the linux environment.
 To start the daemon:
 --------------------
 
-python sensor-data.py start
+`python sensor-data.py start`
 
 To stop the daemon:
 -------------------
