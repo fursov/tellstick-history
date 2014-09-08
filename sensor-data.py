@@ -35,7 +35,7 @@ class SensorData(Daemon):
 				else:
 					if debug:
 						sys.stdout.write(".. sensor does not support humidity\n")
-					sensorTemperature = SensorValue(const.TELLSTICK_HUMIDITY, 0, 0)
+					sensorHumidity = SensorValue(const.TELLSTICK_HUMIDITY, 0, 0)
 				if timestamp > 0:
 					if sensor.id > 0:
 						sensorDb.insertSensorData(sensor.id, sensorTemperature.value, sensorHumidity.value, timestamp)
