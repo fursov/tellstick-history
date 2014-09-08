@@ -11,7 +11,7 @@ debug = 'true' in os.getenv('DEBUG', 'false').lower()
 class SensorData(Daemon):
 	def run(self):
 		core = TelldusCore()
-		sensorDb = SensorDB()
+		sensorDb = SensorDB(database = 'ha', user = 'ha', password = 'ha')
 		while True:
 			listOfSensors = core.sensors()
 			timestamp = 0
@@ -37,7 +37,7 @@ class SensorData(Daemon):
 						sys.stdout.write(".. sensor does not support humidity\n")
 					sensorTemperature = SensorValue(const.TELLSTICK_HUMIDITY, 0, 0)
 				if timestamp > 0:
-					if (sensor.id > 0) and (sensor.id < 255):
+					if sensor.id > 0:
 						sensorDb.insertSensorData(sensor.id, sensorTemperature.value, sensorHumidity.value, timestamp)
 					else:
 						if debug:

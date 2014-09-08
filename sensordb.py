@@ -5,10 +5,17 @@ import MySQLdb.cursors
 debug = 'true' in os.getenv('DEBUG', 'false').lower()
 
 class SensorDB(object):
-	def __init__(self, maxEntries = 1024):
-		self.db = MySQLdb.connect(user = "ha", passwd = "ha", db = "ha", cursorclass = MySQLdb.cursors.DictCursor)
+	def __init__(self, database = 'ha', user = 'ha', password = 'ha', maxEntries = 1024):
+		self.db = MySQLdb.connect(user = user, passwd = password, db = database, cursorclass = MySQLdb.cursors.DictCursor)
 		self.cursor = self.db.cursor()
 		self.maxEntries = maxEntries
+		query = "SHOW TABLES LIKE 'sensordata'"
+		numOfTables = self.cursor.execute(query)
+		if numOfTables == 0:
+			query = "CREATE TABLE IF NOT EXISTS `sensordata` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, " + \
+				"`sensor_id` INT, `temperature` FLOAT, `humidity` TINYINT, `timestamp` INT)"
+			self.cursor.execute(query)
+			self.db.commit()
 
 
 	def __del__(self):
