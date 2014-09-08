@@ -12,6 +12,6 @@ To start the daemon:
 To stop the daemon:
 -------------------
 
-python sensor-data.py stop
+`python sensor-data.py stop`
 
 Sensor database should exist before running the daemon.
